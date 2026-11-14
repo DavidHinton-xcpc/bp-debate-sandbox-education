@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BP 辩论稿沙盘 · Education isn’t as good as it used to be</title>
+<style>
+  :root{
+    --gov:#e8f1ff; --gov-b:#7aa7e0; --opp:#fff0e8; --opp-b:#e0a07a;
+    --ink:#1f2937; --muted:#5b6573; --line:#d9dee6; --accent:#9a3412;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; padding:24px; background:#f6f7f9; color:var(--ink);
+       font:14px/1.5 "Noto Sans CJK SC","Microsoft YaHei",system-ui,sans-serif;}
+  .wrap{max-width:1500px; margin:0 auto}
+  header.top{display:flex; flex-wrap:wrap; align-items:baseline; gap:12px 20px;
+             border-bottom:2px solid var(--ink); padding-bottom:12px; margin-bottom:16px}
+  h1{font-size:20px; margin:0; letter-spacing:.04em}
+  .motion{font-size:15px; font-style:italic; margin:0; flex:1 1 520px}
+  .board{display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+         grid-auto-flow:row; gap:12px; align-items:start}
+  .seat{border:1px solid var(--line); border-top:4px solid; border-radius:8px;
+        padding:12px; min-width:0; break-inside:avoid}
+  .seat.gov{border-top-color:var(--gov-b); background:var(--gov)}
+  .seat.opp{border-top-color:var(--opp-b); background:var(--opp)}
+  .seat.whip{border-style:dashed}
+  .seat header{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:8px}
+  .no{display:inline-grid; place-items:center; width:24px; height:24px; border-radius:50%;
+      background:var(--ink); color:#fff; font-size:12px; font-weight:700}
+  .seat h2{font-size:16px; margin:0}
+  .team{font-size:11px; letter-spacing:.08em; color:var(--muted); text-transform:uppercase}
+  .role{font-size:12px; color:var(--muted); margin:0 0 8px}
+  .nonew{font-size:11px; border:1px dashed var(--ink); border-radius:10px; padding:1px 7px}
+
+  /* 自然开场 / 收尾 */
+  .op,.cl{position:relative; margin:8px 0 10px; padding:7px 10px 7px 46px;
+          border-left:3px solid var(--gov-b); background:#fff; border-radius:0 6px 6px 0;
+          font-size:13px; line-height:1.55}
+  .opp .op,.opp .cl{border-left-color:var(--opp-b)}
+  .op::before,.cl::before{position:absolute; left:9px; top:7px; font-size:10px;
+          font-weight:700; color:#fff; background:var(--gov-b); border-radius:3px; padding:1px 4px}
+  .opp .op::before,.opp .cl::before{background:var(--opp-b)}
+  .op::before{content:"开场"}
+  .cl::before{content:"收尾"}
+  .cl{border-left-style:dotted}
+
+  .item{border:1px solid var(--line); border-radius:6px; background:#fff;
+        padding:8px 9px; margin:7px 0; scroll-margin-top:16px}
+  .item:target{outline:3px solid #f59e0b; background:#fffbeb}
+  .id{font:700 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace; color:#fff;
+      background:var(--ink); padding:3px 6px; border-radius:4px; margin-right:6px}
+  .tag{font-size:11px; color:var(--muted); border:1px solid var(--line);
+       border-radius:10px; padding:1px 7px; margin-left:4px; white-space:nowrap}
+  .tagline{font-weight:700; font-size:13px; margin:6px 0}
+  .tagline.en{font-style:italic; line-height:1.6}
+  .cwe p{margin:7px 0; font-size:12.5px; line-height:1.65}
+  .conj{font-style:italic; color:var(--muted); font-weight:600}
+  .lbl{font-weight:700; color:#0f3d68}
+  .opp .lbl{color:#8a3b12}
+  a{color:var(--accent); text-decoration:none}
+  .to{display:inline-block; font:700 11px/1.4 ui-monospace,monospace; color:var(--accent);
+      background:#fff; border:1px solid var(--accent); border-radius:10px;
+      padding:2px 9px; margin-right:6px; cursor:pointer; text-decoration:none}
+  .to:hover{background:var(--accent); color:#fff}
+  .to::before{content:"→ "}
+  .to.static{cursor:default; opacity:.75}
+  .to.static:hover{background:#fff; color:var(--accent)}
+  .reb{background:#fafafa}
+  .reb p{margin:5px 0; font-size:12.5px}
+
+  /* 页内居中浮层：63.25vw × 63.25vh，面积 2/5；字号统一 ×1.25 */
+  .overlay{position:fixed; inset:0; z-index:50; background:rgba(20,26,36,.45);
+           display:flex; align-items:center; justify-content:center}
+  .overlay[hidden]{display:none}
+  .win{--pop:1.25; width:63.25vw; height:63.25vh; min-width:320px; min-height:240px;
+       display:flex; flex-direction:column; overflow:hidden;
+       background:#f6f7f9; border:1px solid #cbd3de; border-radius:10px;
+       box-shadow:0 18px 60px rgba(0,0,0,.35)}
+  .win header{flex:0 0 auto; display:flex; align-items:center; gap:10px;
+              padding:8px 12px; background:var(--ink); color:#fff}
+  .win header h3{font-size:calc(13px * var(--pop)); margin:0; flex:1; font-weight:700; white-space:nowrap;
+                 overflow:hidden; text-overflow:ellipsis}
+  .close{flex:0 0 auto; background:transparent; color:#fff; border:1px solid #8b95a5;
+         border-radius:6px; font-size:calc(11px * var(--pop)); padding:2px 8px; cursor:pointer}
+  .close:hover{background:#fff; color:var(--ink)}
+  .cmpGrid{flex:1 1 auto; min-height:0; display:grid; grid-template-columns:1fr 1fr;
+           gap:8px; padding:8px}
+  .cmpCol{min-height:0; overflow:auto; background:#fff; border:1px solid var(--line);
+          border-radius:6px; padding:8px}
+  .cmpCol.left{border-top:3px solid var(--gov-b)}
+  .cmpCol.right{border-top:3px solid var(--opp-b)}
+  .cmpSeat{font-size:calc(10px * var(--pop)); letter-spacing:.04em; color:var(--muted);
+           border-bottom:1px solid var(--line); padding-bottom:5px; margin-bottom:6px}
+  .cmpCol .item{border:none; padding:0; margin:0}
+  .cmpCol .tagline{font-size:calc(12px * var(--pop)); margin:5px 0}
+  .cmpCol .tagline.en{font-style:italic}
+  .cmpCol .cwe p,.cmpCol .reb p{font-size:calc(11.5px * var(--pop)); line-height:1.5; margin:7px 0}
+  .cmpCol .conj{font-style:italic; color:#5b6573}
+  .cmpCol .id{font-size:calc(12px * var(--pop))}
+  .cmpCol .tag{font-size:calc(11px * var(--pop))}
+  .cmpCol .lbl{color:#0f3d68}
+  .cmpCol.right .lbl{color:#8a3b12}
+  .cmpCol .to{font-size:calc(10px * var(--pop)); padding:1px 6px; cursor:default}
+
+  @media (max-width:900px){
+    .board{grid-template-columns:1fr}
+    .win{width:80vw; height:50vh}
+  }
+  @media print{
+    @page{size:A4 landscape; margin:9mm}
+    body{background:#fff; padding:0; font-size:9.5pt}
+    .board{grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px}
+    .seat{padding:7px}
+    .item{padding:5px 6px; margin:4px 0}
+    .cwe p,.reb p,.tagline.en{font-size:8.5pt; margin:2px 0}
+    .overlay{display:none !important}
+  }
+
+  .name{font-size:14px; font-weight:700}
+  .avoid{font-size:11px; color:#7a2712; border:1px dashed #c98b6a;
+         border-radius:10px; padding:1px 7px; margin-left:4px}
+  .side{font-size:11px; border:1px solid var(--ink); border-radius:10px; padding:1px 7px}
+  .method{font-size:10px; letter-spacing:.02em; color:var(--muted);
+          border:1px solid var(--line); border-radius:10px; padding:1px 7px; margin-left:4px}
+  .method::before{content:"Method: "; font-weight:700}
+  .opp .method{color:#8a3b12; border-color:#e0b89f}
+  .evlead{font-style:normal; font-weight:600; color:#0f3d68}
+  .opp .evlead{color:#8a3b12}
+  .reb{position:relative; margin-top:12px; border:1px dashed var(--accent); background:#fffaf6}
+  .reb.support{position:relative; margin-top:12px; border:1px dashed var(--accent); background:#fffaf6}
+  .reb.support::before{content:"声援"; position:absolute; left:9px; top:-9px; font-size:10px;
+        font-weight:700; color:#fff; background:var(--accent); border-radius:3px; padding:1px 5px}
+  .reb .method{background:#fff}
+  .cmpCol .method{font-size:calc(10px * var(--pop))}
+  .cmpCol .evlead{color:#0f3d68}
+  .cmpCol .lbl{color:#0f3d68}
+  .cmpCol.right .lbl,.cmpCol.right .evlead{color:#8a3b12}
+  /* 移动端适配 */
+  @media (max-width:600px){
+    body{padding:12px 10px}
+    header.top{gap:6px 10px; padding-bottom:10px; margin-bottom:12px; align-items:center}
+    h1{font-size:17px; flex:0 0 auto}
+    .motion{flex:1 1 100%; order:3; font-size:13px; line-height:1.45; margin-top:2px}
+    #langToggle{order:2; width:44px; height:28px}
+    .board{gap:10px}
+    .seat{padding:10px; overflow:hidden}
+    .seat header{gap:5px}
+    .seat h2{font-size:15px}
+    .name{font-size:13px}
+    .team{font-size:10px; letter-spacing:.02em}
+    .tag,.avoid,.method{font-size:9.5px; padding:1px 5px; margin-left:2px; white-space:normal}
+    .method::before{content:"M: "}
+    .tagline.en,.cwe p,.reb p,.op.en,.cl.en{font-size:12px; line-height:1.55; overflow-wrap:anywhere; word-break:break-word}
+    .op,.cl{padding-left:38px; font-size:12px}
+    .op::before,.cl::before{left:7px}
+    .bl,.en{overflow-wrap:anywhere}
+    .cwe p{margin:6px 0}
+    .item,.reb{padding:7px}
+    .to{display:inline-flex; max-width:100%; white-space:normal; font-size:10px}
+    .win{width:94vw; height:82vh}
+    .cmpGrid{grid-template-columns:1fr; grid-template-rows:1fr 1fr; gap:6px; padding:6px}
+    .cmpCol{padding:6px}
+    .cmpCol.left{border-top-width:3px}
+    .cmpCol.right{border-top-width:3px}
+    .close{font-size:12px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>BP 辩论稿沙盘</h1>
+  <p class="motion">“Education isn’t as good as it used to be.” (p. 75)</p>
+</header>
+
+<main class="board">
+
+  <!-- 1 PM / 房俊杰 -->
+  <article class="seat gov" data-seat="PM" data-order="1">
+    <header><span class="no">1</span><h2>PM</h2><span class="name">房俊杰</span><span class="team">Opening Government</span><span class="side">支持</span></header>
+    <p class="role">定义 · 立论 · 分工</p>
+    <p class="op en">Madam Speaker, we are not mourning a golden age; we are asking what a qualification now certifies. I will set a standard, then test it against one incentive.</p>
+
+    <div class="item" id="PM1" data-title="标准先行">
+      <span class="id">PM-1</span><span class="tag">Mode: Evaluative</span><span class="method">Definition / Standard</span><span class="avoid">规避 · 因果简化</span>
+      <p class="tagline en">First, fix what counts as good.</p>
+      <div class="cwe">
+        <p><span class="lbl en">Here is my evaluative argument claim:</span> <span class="en">Education now certificates recall more reliably than transfer.</span></p>
+        <p><span class="lbl en">Here is my evidence:</span> <span class="evlead en">World Bank data show</span> <span class="en">world adult literacy rose from 74.6% in 1990 to 87.6% in 2023 while the primary net enrolment rate moved from 82.0% to 89.2% — access improved on both measures</span></p>
+        <p><span class="lbl en">Here is my warrant:</span> <span class="en">Those figures measure participation and basic skill, not the ability to apply knowledge in a new situation; a system can expand access and simultaneously narrow what its credentials certify. Definition of the object and Standard of judgement must therefore be fixed before any decline is asserted, and on the standard of durable transfer the burden falls on Government to show the incentive changed. This is a claim about an institutional signal, not about teachers&#x27; effort.</span> <span class="en">In this evaluative claim, Definition fixes the object and Standard supplies the yardstick.</span></p>
+      </div>
+    </div>
+
+    <div class="item" id="PM2" data-title="制度复现">
+      <span class="id">PM-2</span><span class="tag">Mode: Relational</span><span class="method">Comparison</span><span class="avoid">规避 · 后此谬误</span>
+      <p class="tagline en">Second, compare two assessment regimes.</p>
+      <p class="en">Where high-stakes scoring dominates, coursework narrows toward rehearsal; where open problems are assessed, comparable cohorts show more transfer. The recurrence across systems makes the mechanism structural rather than a story about individual failure.</p>
+    </div>
+
+    <p class="cl en">On that standard, the House should support.</p>
+  </article>
+
+  <!-- 2 LO / 耿韵清 -->
+  <article class="seat opp" data-seat="LO" data-order="2">
+    <header><span class="no">2</span><h2>LO</h2><span class="name">耿韵清</span><span class="team">Opening Opposition</span><span class="side">反对</span></header>
+    <p class="role">反对立场 · 驳 PM · 立论 · 分工</p>
+    <p class="op en">Madam Speaker, Government sets a new yardstick, then calls the old one a decline. Two answers.</p>
+
+    <div class="item" id="LO1" data-title="目标扩容">
+      <span class="id">LO-1</span><span class="tag">Mode: Relational</span><span class="method">Definition / Alternativity</span><span class="avoid">规避 · 共因谬误</span>
+      <p class="tagline en">First, the curriculum changed shape.</p>
+      <div class="cwe">
+        <p><span class="lbl en">Here is my relational argument claim:</span> <span class="en">Expansion of aims is a better explanation of the same observations than decay.</span></p>
+        <p><span class="lbl en">Here is my evidence:</span> <span class="evlead en">UNESCO learning domains and World Bank series show</span> <span class="en">tertiary gross enrolment rose from 13.3% in 1990 to 43.2% in 2023, while syllabuses added digital, civic and collaborative competences</span></p>
+        <p><span class="lbl en">Here is my warrant:</span> <span class="en">Fixed hours spread over more goals redistribute attention rather than destroy it; cohort composition also shifts when participation nearly triples. Both are alternative causes of any apparent change, and neither requires learning to have fallen. Judging today&#x27;s broader curriculum by yesterday&#x27;s narrower syllabus mistakes a change of object for a change of quality.</span> <span class="en">Here, Definition and Alternativity supply competing causes.</span></p>
+      </div>
+    </div>
+
+    <div class="item" id="LO2" data-title="测量人群">
+      <span class="id">LO-2</span><span class="tag">Mode: Descriptive</span><span class="method">Thoroughness</span><span class="avoid">规避 · 假类比</span>
+      <p class="tagline en">Second, ask who is in the average.</p>
+      <p class="en">An average over a near-universal cohort is not comparable with one over the selected minority in secondary school a generation ago; a description omitting that shift is not thorough.</p>
+    </div>
+
+    <div class="item reb">
+      <a class="to" href="#PM1" data-target="PM1">PM-1 · 标准先行</a><span class="tag">对象错位</span><span class="method">Intrinsicality</span>
+      <p class="en">The fixed-standard argument treats recall as optional, yet recall is the substrate of transfer; defining good as transfer alone begs the question.</p>
+    </div>
+
+    <div class="item reb">
+      <a class="to" href="#PM2" data-target="PM2">PM-2 · 制度复现</a><span class="tag">共存非因果</span><span class="method">Correlativity</span>
+      <p class="en">The cross-regime comparison lists coexistences, not a counterfactual with ability and cohort held fixed.</p>
+    </div>
+
+    <p class="cl en">Neither a fair comparison nor a measured fall has been offered. We oppose.</p>
+  </article>
+
+  <!-- 3 DPM / 海涵 -->
+  <article class="seat gov" data-seat="DPM" data-order="3">
+    <header><span class="no">3</span><h2>DPM</h2><span class="name">海涵</span><span class="team">Opening Government</span><span class="side">支持</span></header>
+    <p class="role">驳 LO · 重建 PM · 新增论点 · 小结 OG</p>
+    <p class="op en">Madam Speaker, I will answer the composition objection, rebuild our standard, then add a mechanism you can observe in one classroom.</p>
+
+    <div class="item" id="DPM1" data-title="个体权衡">
+      <span class="id">DPM-1</span><span class="tag">Mode: Relational</span><span class="method">Reduction / Authority</span><span class="avoid">规避 · 因果简化</span>
+      <p class="tagline en">First, reduce the claim to one decision.</p>
+      <div class="cwe">
+        <p><span class="lbl en">Here is my relational argument claim:</span> <span class="en">Equal rewards flip one student from understanding to rehearsal.</span></p>
+        <p><span class="lbl en">Here is my evidence:</span> <span class="evlead en">Behavioural research on incentives, cited as Authority here, finds</span> <span class="en">when a reproducible answer and an unseen problem earn identical credit, students shift effort toward the cheaper, more predictable task</span></p>
+        <p><span class="lbl en">Here is my warrant:</span> <span class="en">One student compares two costs for the same credit: understanding takes time and risks failure, rehearsal is cheap and predictable. Repeated across a term the cheaper choice becomes a habit and crowds out practice in transfer before any examination is sat. That micro-level mechanism produces the aggregate pattern PM described, and it survives the access objection, since a change in cohort composition does not change the choice facing any individual student.</span> <span class="en">In this relational claim, Reduction narrows the causal link and Authority supports it.</span></p>
+      </div>
+    </div>
+
+    <div class="item reb">
+      <a class="to" href="#LO1" data-target="LO1">LO-1 · 目标扩容</a><span class="tag">对象错位</span><span class="method">Absence</span>
+      <p class="en">The broader-aims objection answers a claim about effort, not one about transfer: adding goals does not explain why equal credit still selects the cheaper route.</p>
+    </div>
+
+    <div class="item reb">
+      <a class="to" href="#LO2" data-target="LO2">LO-2 · 测量人群</a><span class="tag">构成不等于结果</span><span class="method">Measurement</span>
+      <p class="en">The access objection shows averages moved, not that transfer within any group fell; composition cannot rescue the standard we set.</p>
+    </div>
+
+    <div class="item reb support">
+      <a class="to" href="#PM1" data-target="PM1">PM-1 · 标准先行</a><span class="tag">声援 · DPM</span><span class="method">Definition</span>
+      <p class="en">I reaffirm the fixed standard: transfer is what makes a qualification worth having.</p>
+    </div>
+
+    <p class="cl en">The standard and the mechanism stand. We support.</p>
+  </article>
+
+  <!-- 4 DLO / 季佳慧 -->
+  <article class="seat opp" data-seat="DLO" data-order="4">
+    <header><span class="no">4</span><h2>DLO</h2><span class="name">季佳慧</span><span class="team">Opening Opposition</span><span class="side">反对</span></header>
+    <p class="role">驳 DPM 新论点 · 重建 LO · 新增论点 · 小结 OO</p>
+    <p class="op en">Madam Speaker, the individual calculus assumes what it must prove. Three things: answer it, rebuild our tests, add one more.</p>
+
+    <div class="item" id="DLO1" data-title="缺席检验">
+      <span class="id">DLO-1</span><span class="tag">Mode: Relational</span><span class="method">Absence</span><span class="avoid">规避 · 后此谬误</span>
+      <p class="tagline en">First, learning survives without the old regime.</p>
+      <div class="cwe">
+        <p><span class="lbl en">Here is my relational argument claim:</span> <span class="en">Transferable learning persists where old-style drilling has disappeared.</span></p>
+        <p><span class="lbl en">Here is my evidence:</span> <span class="evlead en">In curriculum case studies reported by OECD reviews,</span> <span class="en">students in systems that replaced rote repetition with open tasks still read unfamiliar texts and handle arithmetic in new settings</span></p>
+        <p><span class="lbl en">Here is my warrant:</span> <span class="en">An effect should be absent when its alleged cause is absent. If application survives without rehearsal, rehearsal was never necessary for learning, and the chain from assessment to lost transfer breaks. Government may still show a marginal shift in what is rewarded, but a marginal shift is not the across-the-board decline the motion asserts; Absence defeats the strong version while leaving the weaker one unproven.</span> <span class="en">In this relational claim, Absence tests whether the alleged cause is necessary.</span></p>
+      </div>
+    </div>
+
+    <div class="item reb">
+      <a class="to" href="#DPM1" data-target="DPM1">DPM-1 · 个体权衡</a><span class="tag">前提不成立</span><span class="method">Intrinsicality</span>
+      <p class="en">The equal-reward calculus assumes transfer is harder to grade; where unseen problems are scored, rehearsal is no longer the cheaper route.</p>
+    </div>
+
+    <div class="item reb">
+      <a class="to" href="#PM1" data-target="PM1">PM-1 · 标准先行</a><span class="tag">标准不完整</span><span class="method">Thoroughness</span>
+      <p class="en">The fixed standard measures one capacity and ignores literacy, access and collaboration, so even a real fall in transfer cannot show education as a whole is worse.</p>
+    </div>
+
+    <div class="item reb support">
+      <a class="to" href="#LO2" data-target="LO2">LO-2 · 测量人群</a><span class="tag">声援 · DLO</span><span class="method">Measurement</span>
+      <p class="en">I develop the access point: a wider cohort makes any single yardstick less comparable over time.</p>
+    </div>
+
+    <p class="cl en">The mechanism and the standard remain unproven. We oppose.</p>
+  </article>
+
+  <!-- 5 MG / 李佳琪 -->
+  <article class="seat gov" data-seat="MG" data-order="5">
+    <header><span class="no">5</span><h2>MG</h2><span class="name">李佳琪</span><span class="team">Closing Government</span><span class="side">支持</span></header>
+    <p class="role">承 OG · 续驳 DLO · 扩展</p>
+    <p class="op en">Madam Speaker, I take Opening Government&#x27;s direction as settled. Our extension concerns institutions rather than individuals.</p>
+
+    <div class="item" id="MG1" data-title="制度边际">
+      <span class="id">MG-1</span><span class="tag">Mode: Relational</span><span class="method">Comparison</span><span class="avoid">规避 · 假类比</span>
+      <p class="tagline en">Our extension: incentives, not ability.</p>
+      <div class="cwe">
+        <p><span class="lbl en">Here is my relational argument claim:</span> <span class="en">Holding ability constant, the assessment regime alone changes what is learned.</span></p>
+        <p><span class="lbl en">Here is my evidence:</span> <span class="evlead en">Cross-system assessment studies report that</span> <span class="en">comparable cohorts produce more transfer under open-problem regimes than under reproducible-item regimes, with intake held constant</span></p>
+        <p><span class="lbl en">Here is my warrant:</span> <span class="en">The same students respond to whatever signal is rewarded. With ability held fixed, the remaining variable is the incentive, so the difference is attributable to the regime rather than to cohort quality or to individual teachers. This extends the individual calculus from one choice to a standing institutional pattern without contradicting it, and it answers the absence objection: transfer surviving without drilling is compatible with transfer falling when rewards change.</span> <span class="en">In this relational claim, Comparison isolates the incentive by holding ability constant.</span></p>
+      </div>
+    </div>
+
+    <div class="item reb">
+      <a class="to" href="#DLO1" data-target="DLO1">DLO-1 · 缺席检验</a><span class="tag">对象错位</span><span class="method">Alternativity</span>
+      <p class="en">The absence test targets drilling, not incentives; learning without rehearsal is compatible with learning falling once rewards change.</p>
+    </div>
+
+    <div class="item reb support">
+      <a class="to" href="#DPM1" data-target="DPM1">DPM-1 · 个体权衡</a><span class="tag">声援 · MG</span><span class="method">Reduction</span>
+      <p class="en">I develop the individual calculus: repeated choices under the same rewards become the institutional pattern.</p>
+    </div>
+
+    <p class="cl en">Government still explains the change. We support.</p>
+  </article>
+
+  <!-- 6 MO / 李思涵 -->
+  <article class="seat opp" data-seat="MO" data-order="6">
+    <header><span class="no">6</span><h2>MO</h2><span class="name">李思涵</span><span class="team">Closing Opposition</span><span class="side">反对</span></header>
+    <p class="role">承 OO · 续驳 OG · 驳 MG · 扩展</p>
+    <p class="op en">Madam Speaker, I take Opening Opposition&#x27;s line as settled. We add one independent gap and answer the institutional extension.</p>
+
+    <div class="item" id="MO1" data-title="测量缺口">
+      <span class="id">MO-1</span><span class="tag">Mode: Evaluative</span><span class="method">Measurement</span><span class="avoid">规避 · 共因谬误</span>
+      <p class="tagline en">Our extension: a proxy is not an outcome.</p>
+      <div class="cwe">
+        <p><span class="lbl en">Here is my evaluative argument claim:</span> <span class="en">Government proves a change in what is rewarded, not a fall in learning.</span></p>
+        <p><span class="lbl en">Here is my evidence:</span> <span class="evlead en">The very World Bank series Government cites</span> <span class="en">reports enrolment and literacy, but contains no before-and-after measure of transfer; the case rests on scoring rules and reported coursework</span></p>
+        <p><span class="lbl en">Here is my warrant:</span> <span class="en">The motion names a decline in educational quality, which is an outcome. Rewards, rehearsal and course breadth are intermediate proxies; unless they are linked to measured transfer across the same cohort over time, the chain stops before the effect. This gap is independent of the opening-half tests: even if the incentive mechanism is real, its size and direction remain unmeasured, so Opposition need not deny the mechanism to deny the conclusion.</span> <span class="en">In this evaluative claim, Measurement challenges the proof offered against the standard.</span></p>
+      </div>
+    </div>
+
+    <div class="item reb">
+      <a class="to" href="#MG1" data-target="MG1">MG-1 · 制度边际</a><span class="tag">标尺未固定</span><span class="method">Measurement</span>
+      <p class="en">The institutional extension holds ability constant but not the yardstick; a cohort judged by open problems will look different by construction.</p>
+    </div>
+
+    <div class="item reb">
+      <a class="to" href="#PM2" data-target="PM2">PM-2 · 制度复现</a><span class="tag">无反事实</span><span class="method">Correlativity</span>
+      <p class="en">The cross-system comparison lists coexistences, not a counterfactual with assessment held fixed.</p>
+    </div>
+
+    <p class="cl en">The causal chain stops before the claimed effect. We oppose.</p>
+  </article>
+
+  <!-- 7 GW / 梁程 -->
+  <article class="seat gov whip" data-seat="GW" data-order="7">
+    <header><span class="no">7</span><h2>GW</h2><span class="name">梁程</span><span class="team">Closing Government</span><span class="side">支持</span><span class="nonew">不新增论点</span></header>
+    <p class="role">政府方全场总结 · 凸显 MG</p>
+    <p class="op en">Madam Speaker, I want to do two things in closing: weigh the evaluative standard, then answer the measurement objection.</p>
+
+    <div class="item" id="GW1" data-title="按标准称重">
+      <span class="id">GW-1</span><span class="tag">Mode: Evaluative</span><span class="method">Standard</span><span class="avoid">规避 · 后此谬误</span>
+      <p class="tagline en">The standard decides this debate.</p>
+      <div class="cwe">
+        <p><span class="lbl en">Here is my evaluative argument claim:</span> <span class="en">On PM&#x27;s standard, Government has shown a decline in transferable learning.</span></p>
+        <p><span class="lbl en">Here is my evidence:</span> <span class="evlead en">Three independent lines converge:</span> <span class="en">the World Bank access series, the incentive finding cited on Authority, and the cross-regime comparison holding intake constant</span></p>
+        <p><span class="lbl en">Here is my warrant:</span> <span class="en">The motion was framed as what schools produce, not as enrolment or survival statistics. Three independent routes converge on one mechanism, and convergence is what makes an evaluative claim persuasive under an agreed standard; asking for a different yardstick after that standard was accepted changes the question rather than answering it. Opposition&#x27;s broader-aims and access points describe the object of measurement, not the product we defined.</span> <span class="en">In this evaluative claim, Standard weighing uses the yardstick PM defined.</span></p>
+      </div>
+    </div>
+
+    <div class="item reb">
+      <a class="to" href="#MO1" data-target="MO1">MO-1 · 测量缺口</a><span class="tag">标准已设定</span><span class="method">Standard</span>
+      <p class="en">The measurement objection disputes the yardstick, not the mechanism; once the House accepts the standard, a post-hoc demand for new statistics does not undo it.</p>
+    </div>
+
+    <div class="item reb support">
+      <a class="to" href="#MG1" data-target="MG1">MG-1 · 制度边际</a><span class="tag">声援 · GW</span><span class="method">Comparison</span>
+      <p class="en">I reaffirm the institutional extension: incentives, not ability, do the explanatory work.</p>
+    </div>
+
+    <p class="cl en">Government proves the decline at the transfer margin. We support.</p>
+  </article>
+
+  <!-- 8 OW / 梁涵 -->
+  <article class="seat opp whip" data-seat="OW" data-order="8">
+    <header><span class="no">8</span><h2>OW</h2><span class="name">梁涵</span><span class="team">Closing Opposition</span><span class="side">反对</span><span class="nonew">不新增论点</span></header>
+    <p class="role">反方全场总结 · 凸显 MO</p>
+    <p class="op en">Madam Speaker, I want to do two things in closing: weigh the standard, then show why a proxy cannot carry the motion.</p>
+
+    <div class="item" id="OW1" data-title="测量未达">
+      <span class="id">OW-1</span><span class="tag">Mode: Evaluative</span><span class="method">Definition / Measurement</span><span class="avoid">规避 · 因果简化</span>
+      <p class="tagline en">The measure never reaches the effect.</p>
+      <div class="cwe">
+        <p><span class="lbl en">Here is my evaluative argument claim:</span> <span class="en">We deny that the case isolates a decline in education rather than a change in how it is measured.</span></p>
+        <p><span class="lbl en">Here is my evidence:</span> <span class="evlead en">The record before the House contains</span> <span class="en">broader aims, a near-tripling of tertiary participation, survival of transfer without drilling, and no comparable before-and-after transfer data</span></p>
+        <p><span class="lbl en">Here is my warrant:</span> <span class="en">An evaluative claim needs a stable object and a stable measure. Government changed the object by defining good as one capacity, while every link from rewards to that capacity has an alternative explanation or an unmeasured outcome: curriculum expansion, cohort composition and the absence test each survive. Relational argumentation requires the alleged cause to be the best explanation of the effect; the accumulated doubts leave the motion unproven.</span> <span class="en">In this evaluative claim, an unstable measure cannot carry a value judgement.</span></p>
+      </div>
+    </div>
+
+    <div class="item reb">
+      <a class="to" href="#PM1" data-target="PM1">PM-1 · 标准先行</a><span class="tag">定义排除过多</span><span class="method">Thoroughness</span>
+      <p class="en">The fixed-standard argument defines away literacy, access and collaboration; a definition that excludes most of education cannot establish that education is worse.</p>
+    </div>
+
+    <div class="item reb support">
+      <a class="to" href="#MO1" data-target="MO1">MO-1 · 测量缺口</a><span class="tag">声援 · OW</span><span class="method">Measurement</span>
+      <p class="en">I reaffirm the measurement gap: no comparable before-and-after result was ever offered.</p>
+    </div>
+
+    <p class="cl en">The alleged decline is not the best explanation. We oppose.</p>
+  </article>
+
+</main>
+
+</div>
+
+<div class="overlay" id="compare" hidden>
+  <div class="win" role="dialog" aria-modal="true" aria-labelledby="cmpTitle">
+    <header>
+      <h3 id="cmpTitle">立论 ⇄ 驳论 / 声援</h3>
+      <button class="close" type="button" data-close>关闭 ✕</button>
+    </header>
+    <div class="cmpGrid">
+      <div class="cmpCol left" id="cmpLeft"></div>
+      <div class="cmpCol right" id="cmpRight"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var ov=document.getElementById('compare'),
+      left=document.getElementById('cmpLeft'),
+      right=document.getElementById('cmpRight'),
+      ttl=document.getElementById('cmpTitle');
+  function seat(el){var s=el.closest('.seat');return s?s.dataset.seat:'';}
+  function num(el){var i=el.querySelector('.id');return i?i.textContent.trim():'立论';}
+  function open(id,reb){
+    var t=document.getElementById(id);
+    if(!t||!reb)return;
+    var sup=reb.classList.contains('support');
+    ttl.textContent=num(t)+' · '+(t.dataset.title||'')+'   ⇄   '+seat(reb)+(sup?' 的声援':' 的驳论');
+    left.innerHTML='<div class="cmpSeat">'+seat(t)+(sup?' · 被声援立论 ':' · 被驳立论 ')+num(t)+'</div>'+t.innerHTML;
+    right.innerHTML='<div class="cmpSeat">'+seat(reb)+(sup?' · 本席声援</div>':' · 本席驳论</div>')+reb.innerHTML;
+    right.querySelectorAll('a.to').forEach(function(b){
+      var s=document.createElement('span');s.className='to static';s.textContent=b.textContent;b.replaceWith(s);
+    });
+    ov.hidden=false;document.body.style.overflow='hidden';
+    left.scrollTop=0;right.scrollTop=0;
+  }
+  function close(){ov.hidden=true;document.body.style.overflow='';}
+  document.querySelectorAll('a.to[data-target]').forEach(function(b){
+    b.addEventListener('click',function(e){e.preventDefault();open(b.dataset.target,b.closest('.item.reb'));});
+  });
+  ov.addEventListener('click',function(e){if(e.target===ov||e.target.closest('[data-close]'))close();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!ov.hidden)close();});
+})();
+</script>
+</body>
+</html>
