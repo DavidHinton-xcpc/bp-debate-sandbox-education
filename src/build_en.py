@@ -217,6 +217,7 @@ def DISP(i): return i[:-1]+'-'+i[-1]
 out=io.StringIO()
 out.write('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n')
 out.write('<meta name="viewport" content="width=device-width, initial-scale=1">\n')
+out.write('<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 16 16\"%3E%3Ctext y=\"13\" font-size=\"13\"%3E%F0%9F%97%A3%3C/text%3E%3C/svg%3E">\n')
 out.write('<title>BP 辩论稿沙盘 · Education isn’t as good as it used to be</title>\n')
 out.write('<style>'+CSS+'</style>\n</head>\n<body>\n<div class="wrap">\n\n')
 out.write('<header class="top">\n  <h1>BP 辩论稿沙盘</h1>\n')
