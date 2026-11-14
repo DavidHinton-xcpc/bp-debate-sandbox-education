@@ -245,3 +245,38 @@ BP 发言顺序即 `1 PM → 2 LO → 3 DPM → 4 DLO → 5 MG → 6 MO → 7 GW
 实测：英文态 `Here is my warrant:` + `Mode: Evaluative` + `Method: Definition / Standard`；中文态 `以下是我的论证依据：` + `模式：Evaluative` + `方法：Definition / Standard`。中文态全文已无 `Technique:` / `Mode:` / `（warrant）`。
 
 复核：两文件词数均 `215/217/230/227/189/207/195/209`（≤230）、26 处 `.method`、16 条链接全解析、按钮仍在标题行右端、浮层 40.01%、无报错；两份内联 JS 通过 `node --check`。
+
+## 10. 移动端适配与 GitHub Pages 发布（2026-11-15）
+
+### 10.1 落盘结构
+
+独立目录 `debate-sandbox/`（独立 git 仓库，不混入工作目录其他项目文件）：
+
+| 文件 | 用途 |
+| --- | --- |
+| `index.html` | 双语版（默认英文），Pages 首页 |
+| `en.html` | 纯英文交付稿 |
+| `README.md` | 本说明全文 |
+| `PUBLISH.md` | 发布与本地复现说明 |
+| `team-list.md` | 提交版名单 |
+| `src/build_en.py` / `src/build_bilingual.py` | 两个生成器 |
+
+### 10.2 移动端适配
+
+`@media (max-width:600px)`：
+
+- 标题行两行布局：`h1` 与按钮同行（按钮 `margin-left:auto` 固定右侧），辩题单独一行；header 高度由 141px 降到 67px（390 宽）/ 86px（320 宽）。
+- 卡片单列、内边距收紧；`.tag / .avoid / .method` 可换行、字号 9.5px；`.method::before` 缩写为 `M: `（中文态 `法：`）。
+- 所有正文 `overflow-wrap:anywhere; word-break:break-word`，防长英文词与数据串撑破卡片；`.seat{overflow:hidden}`。
+- 浮层 `94vw × 82vh`，`cmpGrid` 由左右两栏改为**上下两栏**（`grid-template-columns:1fr; grid-template-rows:1fr 1fr`）。
+- 增加内联 SVG `data:` favicon，消除浏览器自动请求 `/favicon.ico` 产生的 404。
+
+实测视口 `390×844 / 360×740 / 320×568 / 768×1024`：`documentElement.scrollWidth === innerWidth`，无横向溢出；按钮始终在标题行右上；浮层单列；中文切换与弹窗无 `pageerror` / console error。
+
+### 10.3 发布
+
+- 仓库：`https://github.com/DavidHinton-xcpc/bp-debate-sandbox-education`（public）
+- Pages：`build_type=legacy`，`source=master:/`
+- 线上地址：**https://davidhinton-xcpc.github.io/bp-debate-sandbox-education/**
+- `en.html`、`README.md` 均返回 200；首屏默认 `lang=en`、按钮「中」，切换后 `lang=zh-CN`；线上移动端复测无横向溢出、浮层面积 77.1%（窄屏竖排）、桌面 40.0%（2/5）、中文态无 `（warrant）` / `Technique:` 残留。
+- 推送时 HTTPS remote 缺凭据，已用 `gh auth token` 配本地 credential helper 完成同步（`a39cb58`）。
