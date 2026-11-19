@@ -113,21 +113,19 @@ ZH = {
  '跨制度比较列出的只是共存关系，而非在评价制度固定的情况下的反事实。',
 'The causal chain stops before the claimed effect. We oppose.':'因果链停在所声称的效果之前。我方反对。',
 
-'Madam Speaker, I want to do two things in closing: weigh the evaluative standard, then answer the measurement objection.':
- '主席女士，结辩做两件事：衡量评价标准，再回应测量反驳。',
-'The standard decides this debate.':'标准决定本场胜负。',
-"On PM's standard, Government has shown a decline in transferable learning.":'按首相设定的标准，政府方已证明可迁移学习下降。',
-'Three independent lines converge:':'三条独立线索汇聚于此：',
-'the World Bank access series, the incentive finding cited on Authority, and the cross-regime comparison holding intake constant':
- '世界银行的入学序列、以「权威」援引的激励研究发现，以及固定生源的跨制度比较',
-"The motion was framed as what schools produce, not as enrolment or survival statistics. Three independent routes converge on one mechanism, and convergence is what makes an evaluative claim persuasive under an agreed standard; asking for a different yardstick after that standard was accepted changes the question rather than answering it. Opposition's broader-aims and access points describe the object of measurement, not the product we defined.":
- '本场辩题被界定为学校产出什么，而非入学率或存续统计。三条独立路径汇聚于同一机制，而在约定标准之下，汇聚正是评价型主张具有说服力之处；标准已被接受之后再要求换一把尺子，是改换问题而非回答问题。反方的目标扩容与入学面两点描述的是测量对象，不是我方所界定的产出。',
-'In this evaluative claim, Standard weighing uses the yardstick PM defined.':'在这条评价型主张中，「标准称重」使用首相所设定的尺子。',
-'The measurement objection disputes the yardstick, not the mechanism; once the House accepts the standard, a post-hoc demand for new statistics does not undo it.':
- '测量反驳争的是尺子，不是机制；一旦全场接受该标准，事后追加新统计数据的要求并不能推翻它。',
+"Madam Speaker, education here means the transferable capability that the schooling forms; I reaffirm PM's standard and weigh the record.":
+ '主席女士，辩题中的教育指学校所塑造的可迁移能力；我重申首相的标准，再衡量全场记录。',
+'We reaffirm the standard: what a qualification certifies on unseen tasks.':'我们重申该标准：学历在陌生材料上还能证明什么。',
+"On that standard, education is not as good as it used to be: a qualification now certifies less transferable learning.":'按此标准，教育不如从前：学历现在证明的可迁移学习更少了。',
+'Three findings are on the record:':'全场记录中有三项发现：',
+'literacy rose from 74.6% to 87.6% and tertiary enrolment from 13.3% to 43.2% since 1990; equal credit for reproducible and unseen tasks shifted effort to the cheaper one; intake-matched cohorts transferred more under open-problem regimes':
+ '自 1990 年起，识字率由 74.6% 升至 87.6%，高等教育入学率由 13.3% 升至 43.2%；可复现任务与陌生任务同分时，努力转向更便宜的任务；生源匹配的群体在开放问题制度下迁移更多',
+"A qualification certifies what schools train students to do, not how many they admit: when assessment rewards reproducible answers, students rehearse recall, and the credential certifies rehearsal rather than transfer. That is the link to the claim — literacy and enrolment can rise while what a qualification proves about unfamiliar work narrows — and the incentive shift and open-problem comparison show that substitution. Opposition's figures track the object, not this certification function.":
+ '学历证明的是学校训练学生做的事，而非招了多少人：当评价奖励可复现答案，学生反复操练记忆，学历于是证明的是操练而非迁移。这正是与主张的连接——识字率与入学率可以上升，而学历对陌生工作的证明力却在收窄——激励转移与开放题比较正显示了这种替代。反方的数字追踪的是对象，而非这一证明功能。',
+'The measurement objection asks for better transfer data, not another rubric; a gap in size cannot reverse the direction.':
+ '测量反驳索要的是更好的迁移数据，而不是另一把尺子；幅度上的缺口无法推翻方向。',
 'I reaffirm the institutional extension: incentives, not ability, do the explanatory work.':
  '我重申制度层面的扩展：起解释作用的是激励，不是能力。',
-'Government proves the decline at the transfer margin. We support.':'政府方在迁移边际上证明了下降。我方支持。',
 
 'Madam Speaker, I want to do two things in closing: weigh the standard, then show why a proxy cannot carry the motion.':
  '主席女士，结辩做两件事：衡量标准，再说明为何代理变量承载不了本辩题。',

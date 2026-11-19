@@ -12,7 +12,7 @@
 | 项 | 旧案例实测 | 本版实测 |
 | --- | ---: | ---: |
 | 每席英文词数 | 176–216（限 220） | 189–230（限 230） |
-| 全场合计 | 1591 | 1689 |
+| 全场合计 | 1591 | 1706 |
 | 开场 / 收尾 | 8 / 8 | 8 / 8 |
 | 完整 C/E/W 组 | 12 | 8 组（每席一组，新增 Mode 独立块） |
 | 驳论按钮 | 15 | 16（其中 5 个为声援） |
@@ -119,9 +119,9 @@ BP 发言顺序即 `1 PM → 2 LO → 3 DPM → 4 DLO → 5 MG → 6 MO → 7 GW
 | DLO | 227 | ✓ |
 | MG | 189 | ✓ |
 | MO | 207 | ✓ |
-| GW | 195 | ✓ |
+| GW | 212 | ✓ |
 | OW | 209 | ✓ |
-| **合计** | **1689** | — |
+| **合计** | **1706** | — |
 
 ## 5. 校验记录
 
@@ -171,7 +171,7 @@ BP 发言顺序即 `1 PM → 2 LO → 3 DPM → 4 DLO → 5 MG → 6 MO → 7 GW
 
 **语言多样性**：八席开场、收尾、tagline、evidence 引导语、warrant 起句全部互不相同；`specifically` 出现 0 次、`This is because` 出现 0 次。每席仍有 `Here is my … argument claim / evidence / warrant` 三项标签（评分标准），但标签后的行文按席位职责差异化：PM 定标准、LO 换标尺、DPM 缩到个体、DLO 做缺席检验、MG 做制度扩展、MO 抓测量缺口、GW 称重、OW 收束怀疑。
 
-**词数**：`215 / 217 / 230 / 227 / 189 / 207 / 195 / 209`，每席 ≤230，合计 1689。
+**词数**：`215 / 217 / 230 / 227 / 189 / 207 / 212 / 209`，每席 ≤230，合计 1706。
 
 **校验**：HTML 嵌套无 mismatch、内联 JS `node --check` 通过；Playwright 实测默认 `lang=en`、按钮「中」、切换后 `lang=zh-CN`、中文 evidence 含 74.6%/87.6%、18 处 `.method`、浮层中文/英文标题均正确、面积 40.01%、页面数不变、无控制台报错；全页截图（英/中）已复查。
 
@@ -204,7 +204,7 @@ BP 发言顺序即 `1 PM → 2 LO → 3 DPM → 4 DLO → 5 MG → 6 MO → 7 GW
 
 - 默认 `lang=en`、按钮「中」；中文态 `lang=zh-CN`、按钮 `EN`；`innerText` 分别只含对应语言文本。
 - 浮层中文标题 `PM-1 · 标准先行 ⇄ LO 的驳论`、英文 `PM-1 ⇄ LO · Rebuttal`；面积仍 40.01%，页面数 1，无控制台报错。
-- 两文件按「只统计可见 `.lang-en`」口径重算词数，均为 `215/217/230/227/189/207/195/209`，每席 ≤230；18 处 `.method`、16 条链接齐全；两份内联 JS 均通过 `node --check`。
+- 两文件按「只统计可见 `.lang-en`」口径重算词数，均为 `215/217/230/227/189/207/212/209`，每席 ≤230；18 处 `.method`、16 条链接齐全；两份内联 JS 均通过 `node --check`。
 
 ## 8. 按钮改挂标题行（最终）
 
@@ -244,7 +244,7 @@ BP 发言顺序即 `1 PM → 2 LO → 3 DPM → 4 DLO → 5 MG → 6 MO → 7 GW
 
 实测：英文态 `Here is my warrant:` + `Mode: Evaluative` + `Method: Definition / Standard`；中文态 `以下是我的论证依据：` + `模式：Evaluative` + `方法：Definition / Standard`。中文态全文已无 `Technique:` / `Mode:` / `（warrant）`。
 
-复核：两文件词数均 `215/217/230/227/189/207/195/209`（≤230）、26 处 `.method`、16 条链接全解析、按钮仍在标题行右端、浮层 40.01%、无报错；两份内联 JS 通过 `node --check`。
+复核：两文件词数均 `215/217/230/227/189/207/212/209`（≤230）、26 处 `.method`、16 条链接全解析、按钮仍在标题行右端、浮层 40.01%、无报错；两份内联 JS 通过 `node --check`。
 
 ## 10. 移动端适配与 GitHub Pages 发布（2026-11-15）
 
@@ -280,3 +280,66 @@ BP 发言顺序即 `1 PM → 2 LO → 3 DPM → 4 DLO → 5 MG → 6 MO → 7 GW
 - 线上地址：**https://davidhinton-xcpc.github.io/bp-debate-sandbox-education/**
 - `en.html`、`README.md` 均返回 200；首屏默认 `lang=en`、按钮「中」，切换后 `lang=zh-CN`；线上移动端复测无横向溢出、浮层面积 77.1%（窄屏竖排）、桌面 40.0%（2/5）、中文态无 `（warrant）` / `Technique:` 残留。
 - 推送时 HTTPS remote 缺凭据，已用 `gh auth token` 配本地 credential helper 完成同步（`a39cb58`）。
+
+## 11. GW 修订：申明标准、证据落地、共识依据（2026-11-19）
+
+用户指出梁程（GW）发言稿三个问题，均已在 `src/build_en.py` / `src/build_bilingual.py` 的 GW 数据中修订并重新生成两份 HTML。
+
+1. **未申明标准 → 明示尺子**：tagline 由空泛的 `The standard decides this debate.` 改为 `Our standard: what a credential certifies on unseen material.`；claim 由 `On PM's standard…` 改为 `On that standard…`，标准内容当场说出，不再依赖听众知道「PM 的标准」是什么。
+2. **证据过于概括 → 证据落地**：evidence 由三个来源名称（World Bank access series / incentive finding cited on Authority / cross-regime comparison）改为带数值与时间的三项发现：识字率 74.6%→87.6%、高教入学率 13.3%→43.2%（1990–2023）、同分任务实验的激励转移、生源匹配制下的开放题迁移优势。三项均在此前说明的可核查口径内。
+3. **标准来源与「全场共识」无依据 → 改为可核查来源**：warrant 明示尺子来自辩题自身的比较谓词 `as good as`（学校产出什么，出勤率会在举证前裁定辩题），以及 PM 在双方出数据之前已固定该测量；不再使用 `an agreed standard` / `after that standard was accepted` / `once the House accepts the standard` 一类无依据断言。反方确实攻击过标准完备性（DLO/OW 指出该标准排除读写、入学、协作），因此改写为：反方**扩大对象但未给出可操作替代尺**（无指标、无阈值、无跨期比较），争议仍在同一把尺内，争的是完整性、幅度与稳定性。驳 MO-1 也改为 `asks for better transfer data, not another yardstick`，不再假称「全场已接受」。
+
+**词数**：GW 由 195 增至 212（≤230），八席 `215/217/230/227/189/207/212/209`，合计 1706；中文版对应文案同步。此前的 `an agreed standard`、`once the House accepts`、`The standard decides this debate`、`Government proves the decline` 在两份 HTML 中均为 0 次。
+
+**校验**：两份 HTML 结构无 mismatch / unclosed；16 条 `data-target` / `href` 全部解析；26 处 `.method`、8 组 C/E/W；两份内联 JS `node --check` 通过。Playwright（1400×900）实测：GW 新稿全文渲染、默认 `lang=en`、双语切换后 `lang=zh-CN` 且中文 warrant 含「这把尺子来自辩题自身的谓语」；GW 对 MO-1 的驳论浮层打开、标题正确、右栏含新驳论文、面积 40.01%、页面数 1、Esc 关闭、无控制台报错。
+
+## 12. GW 再修订：定义 / 标准 / Toulmin 模型（用户指定结构）
+
+用户要求结辩按「先界定本方所指的教育 → 再给出评判好坏的标准 → 结合已有材料用 Toulmin model 论证」展开。据此重写 GW 主体：
+
+- **Definition**：`Education here is what schooling produces, not access or literacy` —— 先说清辩题中「教育」是学校在学生身上留下的产物，不是入学机会或识字率。
+- **Standard**：`what a qualification certifies on unseen material`，并明示来源 `drawn from the motion's own predicate`，不为结辩临时发明。
+- **Toulmin 六要素**（写入 warrant 段，开头 `In Toulmin terms:`）：Data 为三项发现，Claim 为学历证明的迁移下降，Warrant 为「学校奖励所评→学生练所奖→学历证明所练」，Backing 为激励研究与生源匹配比较 + PM 在出数据前定标准，Qualifier 为 `direction, not universal collapse`，Rebuttal 回应测量反驳与「对象扩大但无替代标准」。
+
+沙盘受 C/E/W 三段约束，六要素嵌入 warrant 段；桌面单稿 `梁程_GW_辩论稿.html` / `.md` 把六要素逐条显式标注。词数：GW 226（≤230），八席合计 1720（历史值，见第 14 节终稿）。双语字典同步；结构、16 条链接、JS 语法、Playwright 双语切换与浮层（面积 40.01%、无报错）均复测通过。
+
+> **本节已被第 13 节取代**：用户随后要求六要素标注撤销，统一为 C/E/W 三段 + mode + 教材方法，词数以第 13 节（GW 229）为准。
+
+## 13. GW 定稿：与其他席位一致的 C/E/W + mode + 教材方法
+
+用户最终要求：Toulmin model 的使用与其他演讲稿保持一致——**只用 Claim / Evidence / Warrant 三段**，claim 标签带一种 mode（Evaluative），并标明论辩过程中所用的教材方法；定义与标准在发言中讲清，但不新增结构块。
+
+据此撤销第 12 节的六要素逐条标注，GW 回到 `Here is my evaluative argument claim / evidence / warrant` 三段：
+- **定义与标准写在发言里**：开场 `education here means what schooling produces, not enrolment or literacy` 界定对象；tagline `Our standard: what a qualification certifies on unseen material` 明示标准；warrant 说明标准来自辩题谓语且 PM 在双方发言前已定。
+- **mode**：claim 标签 `Mode: Evaluative`，warrant 末句 `Definition fixes the object and Standard supplies the yardstick`。
+- **教材方法**：卡片 `.method` 用 Creating evaluative 的原词 `Definition / Standard`（教材 p.51–53），与其余九条立论同一标注体系；不再出现 `In Toulmin terms` 六要素块。
+
+桌面单稿 `梁程_GW_辩论稿.md/.html` 同步为此格式，仅用 C/E/W 三段 + 一行 mode/method 说明 + 定义标准正文。词数 GW 229（≤230），合计 1723（历史值，见第 14 节终稿）。结构、16 条链接、26 处 method、JS 语法、双语切换与浮层实测（40.01%、无报错）均通过；六要素文本在两份成品中均为 0 次。
+
+## 14. GW 终稿：明确定义、补上学历–迁移关系、改「确定」为「重申」
+
+用户三点批评均成立，逐条修订：
+
+1. **定义模糊** → 开场改为 `education here means the transferable capability schooling forms`（学校所塑造的可迁移能力），不再用空泛的 `what schooling produces`。
+2. **warrant 没谈学历与可迁移学习的关系** → 重写 warrant 的因果机制：`A credential certifies what schools train students to do, not how many they admit: when assessment rewards reproducible answers, students rehearse recall, and the credential certifies rehearsal rather than transfer.` 明确「评价奖励可复现答案 → 学生操练记忆 → 学历证明操练而非迁移」；再用 `literacy and enrolment can rise while what a qualification proves about unfamiliar work narrows` 把数据、主张与机制连起来，而非只说对方反驳无效。
+3. **「确定标准」应为「重申标准」** → tagline 改 `We reaffirm the standard`，开场 `I reaffirm PM's standard`，wmode `the reaffirmed Standard supplies the yardstick`；不再出现 `I will set the standard` / `PM fixed the standard`。
+
+仍保持与其他席位一致的 C/E/W 三段 + `Mode: Evaluative` + 教材方法 `Definition / Standard`；桌面单稿 `.md/.html` 同步（逐段一致，16/16 段）。词数 GW 225（≤230），八席合计 1706。沙盘两版结构无错、16 条链接、26 处 method、JS 语法、双语切换与浮层（40.01%、无报错）均复测通过。
+
+## 15. 按用户在桌面 md 上的直接修改同步（英文稿为准）
+
+用户直接编辑了 `~/Desktop/梁程_GW_辩论稿.md` 的英文稿，要求以其为准同步到 HTML。逐处落到 `build_en.py` / `build_bilingual.py` 并重新生成：
+
+1. `the transferable capability schooling forms` → `the transferable capability that the schooling forms`（开场定义）
+2. `certifies on unseen material` → `certifies on unseen tasks`（重申标准）
+3. warrant 首句 `A credential certifies what schools train students to do` → `A qualification what schools train students to do`（**按 md 原文照录**）
+4. 删除 warrant 末句 `In this evaluative claim, Definition states the object and the reaffirmed Standard supplies the yardstick.`（md 中已无）
+5. 驳论 `not another yardstick` → `not another rubric`
+
+> 注意：第 3 处按 md 原文照录，但 `A qualification what schools train students to do` 缺少谓语动词（原为 `certifies`），是病句。已按用户要求同步，未擅自改动；如需修正，最小改法是 `A qualification certifies what schools train students to do`。
+
+桌面单稿 `.md/.html` 逐段一致（16/16 段）；沙盘两版与桌面成品字节一致、生成器可复现。词数 GW 211（≤230），八席合计 1706。结构、16 条链接、26 处 method、JS 语法、双语切换与浮层（40.01%、无报错）均复测通过。
+
+## 16. 修正 md 英文稿病句并同步
+
+用户确认后，把 warrant 首句缺谓语的 `A qualification what schools train students to do` 修正为 `A qualification certifies what schools train students to do`（`~/Desktop/梁程_GW_辩论稿.md`）；同步到 `build_en.py` / `build_bilingual.py` 并重新生成两份成品。桌面单稿 md/html 逐段一致（16/16），沙盘两版与桌面成品字节一致。词数 GW 212（≤230），合计 1706。结构、链接、JS、双语与浮层复测通过。

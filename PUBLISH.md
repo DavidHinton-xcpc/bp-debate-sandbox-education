@@ -19,7 +19,7 @@
 - 辩题 `“Education isn’t as good as it used to be.” (p. 75)`；教材 p.75 第 4 题是 cause reductionism 谬误示例，全稿逐席标出规避的谬误，不把「教育变差」简化为「教师失职」。
 - 八席按 BP 发言顺序 `PM→LO→DPM→DLO→MG→MO→GW→OW` 与给定姓名顺序一一对应：房俊杰、耿韵清、海涵、季佳慧、李佳琪、李思涵、梁程、梁涵。
 - 每席三成分独立分段：`Here is my evaluative/relational argument claim:` / `Here is my evidence:` / `Here is my warrant:`；mode 落在 claim 标签上（教材 p.48 的三种模式），课本技术原词以 `.method` 小字标注，共 26 处。
-- 每席英文词数 `215/217/230/227/189/207/195/209`，均 ≤230；`specifically` 与 `This is because` 均为 0 次。
+- 每席英文词数 `215/217/230/227/189/207/212/209`，均 ≤230；`specifically` 与 `This is because` 均为 0 次。
 - Evidence 含可核查数据（World Bank API，2026-11-14 取数）：成人识字率 74.6%→87.6%、小学净入学率 82.0%→89.2%、高等教育毛入学率 13.3%→43.2%；未取得原文的 PISA 分数不写。
 
 ## 移动端适配
